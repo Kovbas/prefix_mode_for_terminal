@@ -11,7 +11,8 @@ $ prefix git> show == $ git show
 When the script is started it adds to CLI prompt:
 - "prefix **\<entered prefix\>**" (for example, "prefix **git**"), where **\<entered prefix\>** is the first argument;
 - **NO PREFIX** if the first argument is empty;
-to visualize that the script is running and adds the prefix to what you enter in CLI.
+
+in order to visualize that the script is running and adds the prefix to what you enter in CLI.
 
 In order to exit from the script inter "exit".
 
