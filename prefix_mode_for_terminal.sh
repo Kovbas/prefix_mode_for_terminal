@@ -1,8 +1,6 @@
 #!/bin/bash -i
 
-# stty -echoctl
-
-trap exit_on SIGINT
+trap trap_ctrlc INT
 
 PREFIX=$1
 
@@ -29,13 +27,22 @@ else
     PRMPT="${PS1@P}prefix ${FMT_GREEN}${FMT_BOLD}${PREFIX}${FMT_RESET}> "
 fi
 
-exit_on() {
-    printf "\n${PRMPT}Enter exit to stop prefix mode.\n${PRMPT}"
+trap_ctrlc()
+{
+    printf "\n${PRMPT}Enter "exit" to stop prefix mode.\n"
+    printf "${PRMPT}"
+}
+
+wrap_command()
+{
+    # call from the function prevents the main script termination when sub-process is terminated
+    $@
 }
 
 while : ; do
     printf "${PRMPT}"
     read -ra command
     if [ "${command}" == "exit" ]; then break; fi
-    ${PREFIX} "${command[@]}"
+    full_command="${PREFIX} ${command[@]}"
+    wrap_command "${full_command}"
 done
