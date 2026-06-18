@@ -2,7 +2,10 @@
 When script runs it adds a prefix to each entered command.
 For example:
 ```
+$ prefix git> log == $ git log
 $ prefix git> status == $ git status
+$ prefix git> diff == $ git diff
+$ prefix git> show == $ git show
 ```
 
 When the script is started it adds to CLI prompt:
