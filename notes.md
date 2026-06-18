@@ -27,3 +27,7 @@ https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-ec
 
 # bash prompt into script:
 https://stackoverflow.com/a/34688302/8899796
+
+# how to trim
+https://unix.stackexchange.com/a/476504
+

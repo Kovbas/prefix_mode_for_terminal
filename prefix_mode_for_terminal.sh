@@ -1,15 +1,21 @@
 #!/bin/bash -i
 
-stty -echoctl
-
-exit_on() {
-    printf "\n"
-    exit
-}
+# stty -echoctl
 
 trap exit_on SIGINT
 
 PREFIX=$1
+
+trim()
+{
+    var=$1
+    trail="${var##*[^[:blank:]]}"    # get trailing space
+    var="${var%${trail}}"            # remove trailing space
+    lead="${var%%[^[:blank:]]*}"     # get leading space
+    trim="${var#${lead}}"            # remove leading space
+    printf "$trim"
+}
+PREFIX="$(trim "${PREFIX}")"
 
 FMT_RED="\033[0;31m"
 FMT_GREEN="\033[0;32m"
@@ -23,9 +29,13 @@ else
     PRMPT="${PS1@P}prefix ${FMT_GREEN}${FMT_BOLD}${PREFIX}${FMT_RESET}> "
 fi
 
-while  :; do
+exit_on() {
+    printf "\n${PRMPT}Enter exit to stop prefix mode.\n${PRMPT}"
+}
+
+while : ; do
     printf "${PRMPT}"
     read -ra command
-    if [ ${command} == "exit" ]; then break; fi
+    if [ "${command}" == "exit" ]; then break; fi
     ${PREFIX} "${command[@]}"
 done
